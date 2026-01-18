@@ -1,0 +1,26 @@
+version: 0.0
+
+Resources:
+    - TargetService:
+        Type: AWS::CloudFormation::Stack
+
+Hooks:
+  - BeforeBlockTraffic: "scripts/pre_traffic_check.sh"
+  - BeforeInstall: "scripts/install_dependencies.sh"
+  - AfterInstall: "scripts/configure_app.sh"
+  - ApplicationStart: "scripts/start_service.sh"
+  - ValidateService: "scripts/health_check.sh"
+  - AfterAllowTraffic: "scripts/post_traffic_check.sh"
+
+Files:
+  - source: /
+    destination: /opt/my-app
+
+Permissions:
+  - object: /opt/my-app
+    pattern: "**"
+    owner: nodeapp
+    group: nodeapp
+    mode: 755
+    type:
+      - directory

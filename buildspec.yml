@@ -1,0 +1,31 @@
+version: 0.2
+
+phases:
+  prebuild:
+    commands:
+      - echo "Installing dependencies..."
+      - npm ci
+      - echo "Running linting..."
+      - npm run lint || true
+  
+  build:
+    commands:
+      - echo "Running build..."
+      - npm run build
+      - echo "Running tests"
+      - npm test
+  
+  post_build:
+    commands:
+      - echo "Build completed successfully"
+      - zip -r app-artifact.zip . -x "node_modules/*" ".git/*" "*.zip" "*.env"
+
+artifacts:
+  files:
+    - app-artifact.zip
+    - appspec.yml
+  name: BuildArtifact
+
+cache:
+  paths:
+    - '/root/.npm/**/*'

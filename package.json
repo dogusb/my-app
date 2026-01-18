@@ -1,0 +1,41 @@
+{
+    "name": "my-app",
+    "version": "1.0.0",
+    "description": "Sample Node.js application for AWS DevOps labs",
+    "main": "src/server.js",
+    "scripts": {
+        "start": "node src/server.js",
+        "dev": "NODE_ENV=development node src/server.js",
+        "test": "jest --coverage",
+        "test:watch": "jest --watch",
+        "lint": "eslint src/",
+        "build": "echo 'Build complete'",
+        "pm2:start": "pm2 start src/server.js --name my-app --instances max",
+        "pm2:stop": "pm2 stop my-app",
+        "pm2:restart": "pm2 restart my-app"
+    },
+    "keywords": [
+        "nodejs",
+        "devops",
+        "aws",
+        "codebuild",
+        "codedeploy"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {
+        "express": "^4.18.2",
+        "dotenv": "^16.3.1",
+        "morgan": "^1.10.0",
+        "cors": "^2.8.5"
+    },
+    "devDependencies": {
+        "jest": "^29.7.0",
+        "supertest": "^6.3.3",
+        "eslint": "^8.50.0",
+        "nodemon": "^3.0.1"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}
