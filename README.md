@@ -3,3 +3,4 @@
 # CodeDeployRole  updated -- added AWSEC2FullAccess at Wed Jan 21 11:26:20 +03 2026
 # Pipeline recreated  at Wed Jan 21 11:34:37 +03 2026
 # appspec.yml updated. os: linux added  at Wed Jan 21 11:55:47 +03 2026
+# appspec.yml recreated. File in prelab stage was wrong.  at Wed Jan 21 12:41:54 +03 2026

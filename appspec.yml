@@ -1,22 +1,8 @@
 version: 0.0
 os: linux
-
-Resources:
-    - TargetService:
-        Type: AWS::CloudFormation::Stack
-
-Hooks:
-  - BeforeBlockTraffic: "scripts/pre_traffic_check.sh"
-  - BeforeInstall: "scripts/install_dependencies.sh"
-  - AfterInstall: "scripts/configure_app.sh"
-  - ApplicationStart: "scripts/start_service.sh"
-  - ValidateService: "scripts/health_check.sh"
-  - AfterAllowTraffic: "scripts/post_traffic_check.sh"
-
 Files:
   - source: /
     destination: /opt/my-app
-
 Permissions:
   - object: /opt/my-app
     pattern: "**"
@@ -25,3 +11,27 @@ Permissions:
     mode: 755
     type:
       - directory
+  - object: /opt/my-app
+    pattern: "**"
+    owner: nodeapp
+    group: nodeapp
+    mode: 644
+    type:
+      - file
+Hooks:
+  BeforeInstall:
+    - location: scripts/install_dependencies.sh
+      timeout: 300
+      runas: root
+  AfterInstall:
+    - location: scripts/configure_app.sh
+      timeout: 300
+      runas: root
+  ApplicationStart:
+    - location: scripts/start_service.sh
+      timeout: 300
+      runas: root
+  ValidateService:
+    - location: scripts/health_check.sh
+      timeout: 300
+      runas: root
